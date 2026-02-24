@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 ¡Feliz Cumpleaños Almita! 🎁</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #ffecd2, #fcb69f);
+            background-size: 400% 400%;
+            animation: gradient 3s ease infinite;
+            font-family: 'Arial Black', Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .titulo {
+            font-size: clamp(2.5em, 10vw, 6em);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            margin-bottom: 1em;
+            animation: bounce 2s infinite, rainbow 3s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        .subtitulo {
+            font-size: clamp(1.8em, 6vw, 3em);
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            margin-bottom: 2em;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .boton {
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3);
+            color: white;
+            border: none;
+            padding: 25px 50px;
+            font-size: clamp(1.2em, 4vw, 2em);
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .boton:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .contador {
+            font-size: 1.5em;
+            color: white;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="titulo">🎂 FELIZ CUMPLEAÑOS 🎁</h1>
+    <h2 class="subtitulo">ALMITA</h2>
+    <button class="boton" onclick="abrirRegalo()">¡PINCHA AQUÍ!</button>
+    <div class="contador" id="contador">Redirigiendo en <span id="tiempo">5</span> segundos...</div>
+
+    <script>
+        let tiempo = 5;
+        const contador = document.getElementById('tiempo');
+        
+        // Contador regresivo
+        const intervalo = setInterval(() => {
+            tiempo--;
+            contador.textContent = tiempo;
+            if (tiempo <= 0) {
+                clearInterval(intervalo);
+                abrirRegalo();
+            }
+        }, 1000);
+
+        // Confeti constante
+        setInterval(() => {
+            confetti({
+                particleCount: 50,
+                spread: 60,
+                origin: { y: 0.7 }
+            });
+        }, 2000);
+
+        function abrirRegalo() {
+            // Explosión ÉPICA
+            for(let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 200,
+                        angle: 60 - i*15,
+                        spread: 55,
+                        origin: { x: i*0.2, y: 0.6 }
+                    });
+                }, i * 300);
+            }
+            
+            // Redirige a tu sorpresa
+            setTimeout(() => {
+                window.location.href = 'https://pxrezvk.github.io/SOPRESITA/';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
