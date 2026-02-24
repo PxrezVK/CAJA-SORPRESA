@@ -2,23 +2,28 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>🎉 ¡Feliz Cumpleaños Almita! 🎁</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: linear-gradient(45deg, #ff9a9e, #fecfef, #ffecd2, #fcb69f);
-            background-size: 400% 400%;
-            animation: gradient 3s ease infinite;
-            font-family: 'Arial Black', Arial, sans-serif;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
+        * { margin: 0; padding: 0; box-sizing: border-box; touch-action: manipulation; }
+        @media (max-width: 768px) {
+            body {
+                background: linear-gradient(45deg, #ff9a9e, #fecfef, #ffecd2, #fcb69f);
+                background-size: 600% 600%;
+                animation: gradient 4s ease infinite;
+                font-family: system-ui, -apple-system, sans-serif;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                overflow: hidden;
+                padding: 20px;
+            }
         }
         @keyframes gradient {
             0% { background-position: 0% 50%; }
@@ -26,72 +31,94 @@
             100% { background-position: 0% 50%; }
         }
         .titulo {
-            font-size: clamp(2.5em, 10vw, 6em);
+            font-size: clamp(3em, 15vw, 7em);
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
-            margin-bottom: 1em;
-            animation: bounce 2s infinite, rainbow 3s infinite;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            margin-bottom: 0.5em;
+            animation: bounce 2s infinite, rainbow 4s infinite;
+            line-height: 1;
+            touch-action: none;
         }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-8px); }
         }
         @keyframes rainbow {
             0% { filter: hue-rotate(0deg); }
             100% { filter: hue-rotate(360deg); }
         }
         .subtitulo {
-            font-size: clamp(1.8em, 6vw, 3em);
+            font-size: clamp(2.5em, 12vw, 5em);
             color: #fff;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
             margin-bottom: 2em;
-            animation: pulse 1.5s infinite;
+            animation: pulse 1.8s infinite;
+            font-weight: 900;
         }
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.08); }
         }
         .boton {
             background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3);
             color: white;
             border: none;
-            padding: 25px 50px;
-            font-size: clamp(1.2em, 4vw, 2em);
-            font-weight: bold;
-            border-radius: 50px;
+            padding: 30px 60px;
+            font-size: clamp(1.8em, 8vw, 3em);
+            font-weight: 900;
+            border-radius: 60px;
             cursor: pointer;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .boton:hover {
-            transform: translateY(-5px) scale(1.05);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            min-height: 90px;
+            min-width: 300px;
+            touch-action: manipulation;
+        }
+        .boton:active {
+            transform: scale(0.95);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        .emoji { 
+            font-size: 4em; 
+            position: fixed; 
+            pointer-events: none; 
+            animation: float 3s infinite linear;
+            z-index: 1000;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
         .contador {
-            font-size: 1.5em;
+            font-size: clamp(1.2em, 5vw, 2em);
             color: white;
-            margin-top: 20px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            margin-top: 25px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            font-weight: bold;
         }
+        /* Ocultar barra de direcciones en móvil */
+        body { padding-bottom: env(safe-area-inset-bottom); }
     </style>
 </head>
 <body>
+    <div style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;" id="confeti-bg"></div>
+    
     <h1 class="titulo">🎂 FELIZ CUMPLEAÑOS 🎁</h1>
     <h2 class="subtitulo">ALMITA</h2>
-    <button class="boton" onclick="abrirRegalo()">¡PINCHA AQUÍ!</button>
-    <div class="contador" id="contador">Redirigiendo en <span id="tiempo">5</span> segundos...</div>
+    <button class="boton" onclick="abrirRegalo()" ontouchstart="this.classList.add('active')">🎉 ¡PINCHA AQUÍ! 🎉</button>
+    <div class="contador" id="contador">Redirigiendo en <span id="tiempo">5</span> seg...</div>
 
     <script>
         let tiempo = 5;
         const contador = document.getElementById('tiempo');
         
-        // Contador regresivo
+        // Contador con vibración en móvil
         const intervalo = setInterval(() => {
             tiempo--;
             contador.textContent = tiempo;
@@ -99,35 +126,70 @@
                 clearInterval(intervalo);
                 abrirRegalo();
             }
+            // Vibración cada segundo
+            if ('vibrate' in navigator && tiempo > 0 && tiempo % 2 === 0) {
+                navigator.vibrate(50);
+            }
         }, 1000);
 
-        // Confeti constante
+        // Emojis flotantes para móvil
+        function lanzarEmoji() {
+            const emojis = ['🎂','🎁','🎉','🥳','💖','✨','🎈','🎊'];
+            const emoji = document.createElement('div');
+            emoji.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+            emoji.className = 'emoji';
+            emoji.style.left = Math.random() * 100 + '%';
+            emoji.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 5000);
+        }
+        setInterval(lanzarEmoji, 800);
+
+        // Confeti optimizado para móvil
         setInterval(() => {
-            confetti({
-                particleCount: 50,
-                spread: 60,
-                origin: { y: 0.7 }
-            });
-        }, 2000);
+            if (confetti) {
+                confetti({
+                    particleCount: 30,
+                    spread: 70,
+                    origin: { y: 0.8 }
+                });
+            }
+        }, 1500);
 
         function abrirRegalo() {
-            // Explosión ÉPICA
-            for(let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 200,
-                        angle: 60 - i*15,
-                        spread: 55,
-                        origin: { x: i*0.2, y: 0.6 }
-                    });
-                }, i * 300);
+            // Vibración épica
+            if ('vibrate' in navigator) {
+                navigator.vibrate([200, 100, 200]);
             }
             
-            // Redirige a tu sorpresa
+            // Explosión TOTAL
+            for(let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    if (confetti) {
+                        confetti({
+                            particleCount: 150,
+                            angle: 60 - i*10,
+                            spread: 70,
+                            origin: { x: i*0.12, y: 0.7 }
+                        });
+                    }
+                    // Más emojis
+                    for(let j = 0; j < 3; j++) lanzarEmoji();
+                }, i * 200);
+            }
+            
+            // ¡REDIRIGE A TU PÁGINA!
             setTimeout(() => {
                 window.location.href = 'https://pxrezvk.github.io/SOPRESITA/';
-            }, 2000);
+            }, 2500);
         }
+
+        // Prevenir zoom en botón
+        document.addEventListener('touchstart', function(event) {
+            if (event.target.tagName === 'BUTTON') {
+                event.preventDefault();
+            }
+        }, { passive: false });
     </script>
 </body>
 </html>
